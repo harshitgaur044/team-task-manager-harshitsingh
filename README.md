@@ -259,7 +259,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 **Your Name**
 *   **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
 *   **GitHub:** [@yourusername](https://github.com/yourusername)
-*   **Portfolio:** [yourportfolio.com](https://yourportfolio.com)
 
 ---
 
