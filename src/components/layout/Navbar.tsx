@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-xs font-bold shadow-sm ring-1 ring-slate-200 dark:bg-dark-secondary/50 dark:text-text-primary dark:ring-white/10 border dark:border-white/5">
           <span className="text-slate-400 dark:text-text-muted uppercase tracking-widest text-[9px]">Workspace</span>
           <span className="text-slate-300 dark:text-text-placeholder">/</span>
-          <span className="text-slate-900 dark:text-text-primary uppercase tracking-widest text-[9px]">Mission Control</span>
+          <span className="text-slate-900 dark:text-text-primary uppercase tracking-widest text-[9px]">Dashboard</span>
         </div>
       </div>
 
@@ -67,7 +67,7 @@ export const Navbar: React.FC = () => {
             </div>
             <input
               type="text"
-              placeholder="Search missions, tasks, people..."
+              placeholder="Search projects, tasks, people..."
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -143,7 +143,7 @@ export const Navbar: React.FC = () => {
                   </div>
                 ) : (
                   <div className="p-8 text-center">
-                    <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">No signals found for "{searchQuery}"</p>
+                    <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">No results found for "{searchQuery}"</p>
                   </div>
                 )}
               </motion.div>
@@ -186,8 +186,8 @@ export const Navbar: React.FC = () => {
                 className="absolute right-0 mt-4 w-96 origin-top-right overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl dark:border-dark-border dark:bg-dark-elevated backdrop-blur-3xl"
               >
                 <div className="flex items-center justify-between border-b border-slate-50 p-6 dark:border-dark-border">
-                  <h3 className="text-[11px] font-black tracking-widest dark:text-text-primary uppercase">Neural Pulse</h3>
-                  <button className="text-[10px] font-black text-brand-600 hover:text-brand-500 dark:text-brand-400 uppercase tracking-widest">Acknowledge All</button>
+                  <h3 className="text-[11px] font-black tracking-widest dark:text-text-primary uppercase">Notifications</h3>
+                  <button className="text-[10px] font-black text-brand-600 hover:text-brand-500 dark:text-brand-400 uppercase tracking-widest">Mark all as read</button>
                 </div>
                 <div className="max-h-[400px] overflow-y-auto p-3 space-y-1 custom-scrollbar">
                   {notifications.length > 0 ? (
@@ -210,12 +210,12 @@ export const Navbar: React.FC = () => {
                     ))
                   ) : (
                     <div className="p-8 text-center">
-                      <p className="text-sm font-bold text-slate-400 dark:text-text-muted uppercase tracking-widest opacity-50">Pulse flat line. No signals.</p>
+                      <p className="text-sm font-bold text-slate-400 dark:text-text-muted uppercase tracking-widest opacity-50">No new notifications.</p>
                     </div>
                   )}
                 </div>
                 <div className="border-t border-slate-50 p-4 dark:border-dark-border">
-                  <button className="w-full rounded-xl py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-text-muted hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">Archive Access</button>
+                  <button className="w-full rounded-xl py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-text-muted hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">View All Notifications</button>
                 </div>
               </motion.div>
             )}

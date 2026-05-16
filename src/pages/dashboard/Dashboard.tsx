@@ -72,7 +72,7 @@ export const Dashboard: React.FC = () => {
           <div className="space-y-5">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
               <Zap size={14} className="text-brand-300" fill="currentColor" />
-              <span>Workspace Sync Active</span>
+              <span>Workspace Connected</span>
             </div>
             <h1 className="font-display text-4xl font-bold tracking-tight lg:text-6xl">
               Hello, {user?.name.split(' ')[0]}!
@@ -101,11 +101,11 @@ export const Dashboard: React.FC = () => {
           <div className="grid grid-cols-2 gap-4 lg:flex lg:items-center lg:gap-6">
             <div className="glass group rounded-3xl border-white/10 bg-white/10 p-6 text-center backdrop-blur-md transition-all hover:bg-white/20 min-w-[140px]">
               <p className="text-4xl font-black">{projects.length}</p>
-              <p className="mt-1 text-[10px] font-black uppercase tracking-widest text-brand-200">Active Missions</p>
+              <p className="mt-1 text-[10px] font-black uppercase tracking-widest text-brand-200">Active Projects</p>
             </div>
             <div className="glass group rounded-3xl border-white/10 bg-white/10 p-6 text-center backdrop-blur-md transition-all hover:bg-white/20 min-w-[140px]">
               <p className="text-4xl font-black">{activeTasksCount}</p>
-              <p className="mt-1 text-[10px] font-black uppercase tracking-widest text-brand-200">Pending Actions</p>
+              <p className="mt-1 text-[10px] font-black uppercase tracking-widest text-brand-200">Pending Tasks</p>
             </div>
           </div>
         </div>
@@ -249,7 +249,7 @@ export const Dashboard: React.FC = () => {
                 variant="secondary" 
                 className="w-full font-black uppercase tracking-widest text-[10px] text-slate-600 dark:text-slate-300 h-12 rounded-xl"
             >
-                View Master Schedule
+                View Full Schedule
             </Button>
           </div>
         </Card>
@@ -259,7 +259,7 @@ export const Dashboard: React.FC = () => {
          <Card className="!p-8 dark:bg-dark-card border-none ring-1 ring-slate-200 dark:ring-white/5">
             <CardHeader className="flex flex-row items-center justify-between border-none p-0 mb-8">
               <div>
-                <h3 className="text-2xl font-black tracking-tight dark:text-text-primary uppercase tracking-tighter">Active Missions</h3>
+                <h3 className="text-2xl font-black tracking-tight dark:text-text-primary uppercase tracking-tighter">Active Projects</h3>
                 <p className="text-sm font-medium text-slate-500 dark:text-text-muted">Live project velocity</p>
               </div>
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 border dark:border-brand-500/20 shadow-lg shadow-brand-500/10">
@@ -273,7 +273,7 @@ export const Dashboard: React.FC = () => {
                        <div className="flex justify-between items-end">
                           <div>
                             <span className="block text-base font-black dark:text-white leading-tight uppercase tracking-tight">{project.name}</span>
-                            <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">{project.team} Division</span>
+                            <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">{project.team} Team</span>
                           </div>
                           <span className="text-xs font-black text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-500/10 px-2.5 py-1.5 rounded-xl ring-1 ring-brand-500/20">
                             {project.progress}%
@@ -298,7 +298,7 @@ export const Dashboard: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-2xl font-black tracking-tight text-slate-900 dark:text-text-primary uppercase tracking-tighter">Recent Activity</h3>
-                  <p className="text-sm font-medium text-slate-500 dark:text-text-secondary opacity-70">Pulse of the workspace</p>
+                  <p className="text-sm font-medium text-slate-500 dark:text-text-secondary opacity-70">Workspace history</p>
                 </div>
               </div>
             </CardHeader>

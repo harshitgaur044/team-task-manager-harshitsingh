@@ -70,7 +70,7 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
             <div className="flex items-center justify-between border-b border-slate-100 p-8 dark:border-dark-border">
               <div>
                 <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-text-primary uppercase tracking-tighter">Create New Task</h2>
-                <p className="mt-1 text-sm font-medium text-slate-400 dark:text-text-secondary opacity-70">Define the objective and assign it.</p>
+                <p className="mt-1 text-sm font-medium text-slate-400 dark:text-text-secondary opacity-70">Define the task and assign it.</p>
               </div>
               <button
                 onClick={onClose}
@@ -174,7 +174,7 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
 
                 {/* Description */}
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Briefing</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Description</label>
                   <textarea
                     {...register('description')}
                     placeholder="Details about the task expectations..."

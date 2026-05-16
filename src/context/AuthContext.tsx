@@ -4,8 +4,8 @@ import { storage } from '../lib/storage';
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string) => Promise<void>;
-  signup: (name: string, email: string) => Promise<void>;
+  login: (email: string, password?: string) => Promise<void>;
+  signup: (name: string, email: string, password?: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -25,37 +25,43 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     initAuth();
   }, []);
 
-  const login = async (email: string) => {
+  const login = async (email: string, password?: string) => {
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 800));
     
     const users = storage.users.get();
     const foundUser = users.find(u => u.email === email);
     
+    // In a real production app, passwords would be hashed and checked server-side.
+    // For this local storage simulation, we'll check the password if provided.
     if (foundUser) {
+      if (password && foundUser.password && foundUser.password !== password) {
+        throw new Error('Invalid email or password.');
+      }
       storage.auth.setCurrentUser(foundUser);
       setUser(foundUser);
     } else {
-      throw new Error('User signal not detected. Please verify credentials.');
+      throw new Error('User account not found.');
     }
     setIsLoading(false);
   };
 
-  const signup = async (name: string, email: string) => {
+  const signup = async (name: string, email: string, password?: string) => {
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 800));
 
     const existingUsers = storage.users.get();
     if (existingUsers.some(u => u.email === email)) {
-      throw new Error('Identity already exists in workspace.');
+      throw new Error('Account with this email already exists.');
     }
 
     const newUser: User = {
       id: Math.random().toString(36).substr(2, 9),
       name,
       email,
+      password,
       role: 'Member',
-      avatar: `https://i.pravatar.cc/150?u=${email}`,
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
       status: 'online'
     };
 

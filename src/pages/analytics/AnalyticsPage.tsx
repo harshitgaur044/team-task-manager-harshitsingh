@@ -76,8 +76,8 @@ export const AnalyticsPage: React.FC = () => {
       {/* Page Header */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="font-display text-4xl font-bold tracking-tight dark:text-white uppercase tracking-tight">Workspace Intelligence</h1>
-          <p className="mt-1 text-slate-500 font-medium">Real-time analytical depth across your entire mission portfolio.</p>
+          <h1 className="font-display text-4xl font-bold tracking-tight dark:text-white uppercase tracking-tight">Project Analytics</h1>
+          <p className="mt-1 text-slate-500 font-medium">Real-time analytical depth across your entire project portfolio.</p>
         </div>
         <div className="flex items-center gap-3">
             <button className="flex items-center gap-2 rounded-2xl bg-white px-5 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-600 shadow-sm ring-1 ring-slate-200 hover:bg-slate-50 dark:bg-white/5 dark:text-white dark:ring-white/10">
@@ -119,8 +119,8 @@ export const AnalyticsPage: React.FC = () => {
         <Card className="lg:col-span-2 !p-0 overflow-hidden border-none ring-1 ring-slate-100 dark:bg-zinc-900 dark:ring-white/5">
           <CardHeader className="p-8 pb-0 flex flex-row items-center justify-between border-none">
             <div>
-              <h3 className="text-2xl font-black tracking-tight dark:text-white">Throughput Analytics</h3>
-              <p className="text-sm font-medium text-slate-500">Comparing actual completion vs planned backlog capacity</p>
+              <h3 className="text-2xl font-black tracking-tight dark:text-white">Performance Analytics</h3>
+              <p className="text-sm font-medium text-slate-500">Comparing actual completion vs planned estimates</p>
             </div>
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-500/10">
                 <TrendingUp size={22} className="text-emerald-600 dark:text-emerald-400" />
@@ -163,14 +163,14 @@ export const AnalyticsPage: React.FC = () => {
                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-md ring-1 ring-white/10">
                    <BrainCircuit size={24} className="text-brand-100" />
                </div>
-               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-200">Neural Insight Engine</span>
+               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-brand-200">AI Performance Assistant</span>
             </div>
-            <h3 className="text-3xl font-black leading-tight tracking-tight uppercase">Operational Shift Detected</h3>
+            <h3 className="text-3xl font-black leading-tight tracking-tight uppercase">Performance Insight</h3>
           </CardHeader>
           <CardContent className="flex-1 px-9 pb-9 space-y-7">
             <div className="p-6 rounded-3xl bg-white/10 backdrop-blur-md border border-white/10 shadow-inner">
                <p className="text-base font-bold text-white leading-relaxed italic">
-                  "Current trends show a <span className="text-brand-300 font-black">{completionRate}%</span> completion efficiency. Predictive models suggest increasing focus on high-priority tasks to reach <span className="text-emerald-300 font-black">95%</span> goal."
+                  "Current trends show a <span className="text-brand-300 font-black">{completionRate}%</span> completion efficiency. Data analysis suggests focusing on high-priority tasks to reach your <span className="text-emerald-300 font-black">95%</span> goal."
                </p>
             </div>
             <div className="space-y-4">
@@ -185,7 +185,7 @@ export const AnalyticsPage: React.FC = () => {
           </CardContent>
           <div className="p-9 pt-0">
              <Button variant="secondary" className="w-full h-14 rounded-2xl bg-white text-brand-600 hover:bg-brand-50 font-black uppercase tracking-[0.1em] text-xs border-none shadow-xl shadow-black/10 transition-all active:scale-95">
-                Optimize Strategy
+                Optimize Workflow
              </Button>
           </div>
         </Card>
@@ -247,7 +247,7 @@ export const AnalyticsPage: React.FC = () => {
             <CardHeader className="p-0 border-none mb-10 flex flex-row items-center justify-between">
                <div>
                   <h3 className="text-2xl font-black tracking-tight dark:text-white uppercase">Project Velocity</h3>
-                  <p className="text-sm font-medium text-slate-500">Live throughput per mission</p>
+                  <p className="text-sm font-medium text-slate-500">Live performance per project</p>
                </div>
                <div className="h-11 w-11 flex items-center justify-center rounded-2xl bg-brand-50 dark:bg-brand-500/10">
                     <BarChart3 className="text-brand-600 dark:text-brand-400" size={24} />

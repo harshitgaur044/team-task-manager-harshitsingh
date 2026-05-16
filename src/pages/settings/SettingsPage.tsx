@@ -24,11 +24,11 @@ export const SettingsPage: React.FC = () => {
     });
 
     const tabs = [
-        { id: 'profile', label: 'Signal Identity', icon: User },
-        { id: 'security', label: 'Encryption Keys', icon: Shield },
-        { id: 'notifications', label: 'Neural Alerts', icon: Bell },
-        { id: 'appearance', label: 'Visual Interface', icon: Palette },
-        { id: 'billing', label: 'Resource Quota', icon: Globe },
+        { id: 'profile', label: 'User Profile', icon: User },
+        { id: 'security', label: 'Security', icon: Shield },
+        { id: 'notifications', label: 'Notifications', icon: Bell },
+        { id: 'appearance', label: 'Appearance', icon: Palette },
+        { id: 'billing', label: 'Billing', icon: Globe },
     ];
 
     const handleSaveProfile = async () => {
@@ -39,12 +39,10 @@ export const SettingsPage: React.FC = () => {
             updateUserInfo(user.id, {
                 name: profileData.name,
                 avatar: profileData.avatar
-                // Title and bio would usually be in a separate user profile object, 
-                // but we keep it simple here by updating primary user info
             });
-            toast.success('Identity profile synchronized successfully.');
+            toast.success('Profile updated successfully.');
         } catch (error) {
-            toast.error('Synchronization failed. Check signal strength.');
+            toast.error('Update failed. Please try again.');
         } finally {
             setIsSaving(false);
         }
@@ -56,17 +54,17 @@ export const SettingsPage: React.FC = () => {
                 <div className="absolute inset-0 opacity-10 [background-size:24px_24px] [background-image:radial-gradient(#fff_1px,transparent_1px)]" />
                 <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand-400/20 blur-3xl" />
                 <div className="relative z-10">
-                    <h1 className="font-display text-5xl font-black tracking-tighter text-white uppercase leading-none">System <span className="text-brand-200">Terminal</span></h1>
-                    <p className="mt-4 text-brand-100 font-medium max-w-lg text-lg">Configure your operative parameters and neural interface preferences.</p>
+                    <h1 className="font-display text-5xl font-black tracking-tighter text-white uppercase leading-none">Settings <span className="text-brand-200">Panel</span></h1>
+                    <p className="mt-4 text-brand-100 font-medium max-w-lg text-lg">Manage your account settings and workspace preferences.</p>
                 </div>
                 <div className="absolute bottom-6 right-8 flex items-center gap-3">
                    <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-md border border-white/10">
                       <div className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                      <span className="text-[10px] font-black uppercase tracking-widest text-white">Status: Nominal</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-white">Status: Online</span>
                    </div>
                    <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-md border border-white/10">
                       <Cpu size={14} className="text-brand-300" />
-                      <span className="text-[10px] font-black uppercase tracking-widest text-white">Version 4.2.0-Alpha</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-white">v1.2.4</span>
                    </div>
                 </div>
             </header>
@@ -111,8 +109,8 @@ export const SettingsPage: React.FC = () => {
                            <section className="space-y-6">
                               <div className="flex items-end justify-between">
                                  <div>
-                                    <h3 className="text-2xl font-black uppercase tracking-tight dark:text-text-primary">Neural Signature</h3>
-                                    <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 leading-relaxed">This identity card is broadcasted across the workspace mesh.</p>
+                                    <h3 className="text-2xl font-black uppercase tracking-tight dark:text-text-primary">Public Profile</h3>
+                                    <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 leading-relaxed">This information will be visible to other team members.</p>
                                  </div>
                                  <Button 
                                     onClick={handleSaveProfile} 
@@ -120,7 +118,7 @@ export const SettingsPage: React.FC = () => {
                                     className="rounded-2xl h-12 px-8 font-black uppercase tracking-widest text-[10px]"
                                  >
                                     <Save size={16} className="mr-2" />
-                                    Synchronize
+                                    Save Changes
                                  </Button>
                               </div>
 
@@ -142,14 +140,14 @@ export const SettingsPage: React.FC = () => {
                                           <p className="text-sm font-bold text-slate-400 uppercase tracking-widest leading-none bg-slate-100 dark:bg-white/10 px-3 py-1.5 rounded-lg inline-block dark:text-brand-400">{profileData.title}</p>
                                           <div className="flex items-center gap-2 text-[10px] font-black text-emerald-500 uppercase tracking-widest mt-2">
                                              <Check size={14} />
-                                             Operative Status: Fully Calibrated
+                                             Account Status: Active
                                           </div>
                                        </div>
                                     </div>
 
-                                    <div className="grid gap-8 md:grid-cols-2">
+                                     <div className="grid gap-8 md:grid-cols-2">
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Operative Name</label>
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Full Name</label>
                                           <Input 
                                             value={profileData.name} 
                                             onChange={(e) => setProfileData({...profileData, name: e.target.value})}
@@ -157,7 +155,7 @@ export const SettingsPage: React.FC = () => {
                                           />
                                        </div>
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Frequency Source</label>
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Email Address</label>
                                           <Input 
                                             value={profileData.email} 
                                             onChange={(e) => setProfileData({...profileData, email: e.target.value})}
@@ -165,7 +163,7 @@ export const SettingsPage: React.FC = () => {
                                           />
                                        </div>
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Functional Designation</label>
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Job Title</label>
                                           <Input 
                                             value={profileData.title} 
                                             onChange={(e) => setProfileData({...profileData, title: e.target.value})}
@@ -181,12 +179,12 @@ export const SettingsPage: React.FC = () => {
                                     </div>
 
                                     <div className="space-y-1.5">
-                                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Identity Directive (Bio)</label>
+                                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Bio</label>
                                        <textarea 
                                           value={profileData.bio}
                                           onChange={(e) => setProfileData({...profileData, bio: e.target.value})}
                                           className="min-h-[120px] w-full rounded-[1.5rem] border-transparent bg-white dark:bg-dark-secondary p-4 text-sm font-semibold tracking-tight leading-relaxed focus:ring-brand-500/10 transition-all focus:outline-none dark:text-text-primary dark:placeholder:text-text-placeholder"
-                                          placeholder="Define your purpose..."
+                                          placeholder="Tell us about yourself..."
                                        />
                                     </div>
                                  </CardContent>
@@ -206,8 +204,8 @@ export const SettingsPage: React.FC = () => {
                            <section className="space-y-6">
                               <div className="flex items-end justify-between">
                                  <div>
-                                    <h3 className="text-2xl font-black uppercase tracking-tight dark:text-text-primary">Encryption Layer</h3>
-                                    <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 leading-relaxed">Protect your node with rotating access keys.</p>
+                                    <h3 className="text-2xl font-black uppercase tracking-tight dark:text-text-primary">Security Settings</h3>
+                                    <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 leading-relaxed">Manage your password and account security.</p>
                                  </div>
                               </div>
 
@@ -215,16 +213,16 @@ export const SettingsPage: React.FC = () => {
                                  <CardContent className="p-10 space-y-8">
                                     <div className="grid gap-8">
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Root Access Key</label>
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Current Password</label>
                                           <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary" />
                                        </div>
                                        <div className="grid gap-8 md:grid-cols-2">
                                           <div className="space-y-1.5">
-                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">New Terminal Key</label>
+                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">New Password</label>
                                              <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary" />
                                           </div>
                                           <div className="space-y-1.5">
-                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Verify New Key</label>
+                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Confirm New Password</label>
                                              <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary" />
                                           </div>
                                        </div>
@@ -236,15 +234,15 @@ export const SettingsPage: React.FC = () => {
                                              <ShieldAlert size={24} />
                                           </div>
                                           <div>
-                                             <p className="text-[11px] font-black uppercase tracking-widest text-brand-600 dark:text-brand-400">Biological Override (2FA)</p>
-                                             <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 tracking-tight leading-relaxed">Add secondary signal verification to your identity.</p>
+                                             <p className="text-[11px] font-black uppercase tracking-widest text-brand-600 dark:text-brand-400">Two-Factor Authentication (2FA)</p>
+                                             <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 tracking-tight leading-relaxed">Add an extra layer of security to your account.</p>
                                           </div>
                                        </div>
                                        <Button variant="outline" className="rounded-2xl h-11 px-6 font-black uppercase tracking-widest text-[9px] border-brand-500/20 text-brand-600 dark:text-brand-400 hover:bg-brand-500 hover:text-white transition-all">Initialize</Button>
                                     </div>
 
                                     <div className="flex justify-end pt-4">
-                                       <Button className="rounded-2xl h-12 px-8 font-black uppercase tracking-widest text-[10px]">Refresh Access Tokens</Button>
+                                       <Button className="rounded-2xl h-12 px-8 font-black uppercase tracking-widest text-[10px]">Update Password</Button>
                                     </div>
                                  </CardContent>
                               </Card>

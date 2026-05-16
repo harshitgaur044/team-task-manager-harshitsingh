@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Zap, Shield, User, Smartphone, Globe, Cloud } from 'lucide-react';
+import { Zap, Shield, User, Smartphone, Globe, Cloud, Eye, EyeOff } from 'lucide-react';
 import { Button } from '../../components/common/Button';
 import { Input } from '../../components/common/Input';
 import { useAuth } from '../../context/AuthContext';
@@ -16,7 +16,6 @@ const signupSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   confirmPassword: z.string(),
-  role: z.enum(['Admin', 'Member']),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
@@ -27,195 +26,198 @@ type SignupForm = z.infer<typeof signupSchema>;
 export const Signup: React.FC = () => {
   const { signup, isLoading } = useAuth();
   const navigate = useNavigate();
-  const [role, setRole] = React.useState<'Admin' | 'Member'>('Member');
+  const [showPassword, setShowPassword] = React.useState(false);
   
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<SignupForm>({
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<SignupForm>({
     resolver: zodResolver(signupSchema),
-    defaultValues: { role: 'Member' }
   });
+
+  const password = watch('password', '');
 
   const onSubmit = async (data: SignupForm) => {
     try {
-      await signup(data.fullName, data.email);
-      toast.success('Identity established. Welcome to the workspace.');
+      await signup(data.fullName, data.email, data.password);
+      toast.success('Account created successfully!');
       navigate('/');
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Establishment failed');
+      toast.error(err instanceof Error ? err.message : 'Signup failed');
     }
   };
 
-  const handleRoleSelect = (selectedRole: 'Admin' | 'Member') => {
-    setRole(selectedRole);
-    setValue('role', selectedRole);
-  };
+  const passwordRequirements = [
+    { label: 'Minimum 8 characters', met: password.length >= 8 },
+    { label: 'One uppercase letter', met: /[A-Z]/.test(password) },
+    { label: 'One number', met: /[0-9]/.test(password) }
+  ];
 
   return (
-    <div className="flex min-h-screen overflow-hidden bg-white dark:bg-zinc-950">
+    <div className="flex min-h-screen overflow-hidden bg-white dark:bg-dark-bg font-sans">
       {/* Left sidebar: Branding/Motivation */}
-      <div className="relative hidden w-[45%] flex-col justify-between overflow-hidden bg-brand-600 p-16 lg:flex">
+      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-brand-600 p-16 lg:flex">
         <div className="absolute inset-0 z-0">
-          <div className="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-brand-400/20 blur-3xl" />
-          <div className="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl" />
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')] bg-cover opacity-20 mix-blend-overlay" />
-          <div className="absolute inset-0 opacity-10 [background-size:24px_24px] [background-image:radial-gradient(#fff_1px,transparent_1px)]" />
+          <div className="absolute -left-20 -top-20 h-96 w-96 rounded-full bg-brand-400/20 blur-3xl opacity-50" />
+          <div className="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-indigo-500/20 blur-3xl opacity-50" />
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')] bg-cover opacity-10 mix-blend-overlay" />
+          <div className="absolute inset-0 opacity-[0.03] [background-size:24px_24px] [background-image:radial-gradient(#fff_1px,transparent_1px)]" />
         </div>
 
         <div className="relative z-10">
           <div className="flex items-center gap-3 text-white">
-            <Zap size={40} fill="currentColor" />
-            <span className="font-display text-3xl font-black tracking-tight uppercase">TaskFlow</span>
+            <Zap size={32} fill="currentColor" />
+            <span className="text-2xl font-black tracking-tight uppercase">TaskFlow</span>
           </div>
         </div>
 
         <div className="relative z-10 max-w-lg">
-          <motion.h1 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-display text-7xl font-black leading-[0.9] text-white mb-10 uppercase tracking-tighter"
           >
-            Deploy <br /> <span className="text-brand-300">your elite</span> <br /> team.
-          </motion.h1>
-          <div className="space-y-8">
-            {[
-              { icon: Globe, title: 'Global Sync', text: 'Real-time state distribution across all nodes.' },
-              { icon: Shield, title: 'Hardened Access', text: 'Advanced identity protocols for mission integrity.' },
-              { icon: Cloud, title: 'Seamless Scale', text: 'Automated workflow orchestration for growing teams.' }
-            ].map((item, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 + (idx * 0.1) }}
-                className="flex items-start gap-4 text-brand-100"
-              >
-                <div className="flex mt-1 h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white/10 text-white shadow-xl backdrop-blur-md border border-white/10">
-                  <item.icon size={20} />
+            <h1 className="text-6xl font-black leading-tight text-white uppercase tracking-tighter mb-8">
+              Join the <br /> <span className="text-brand-300">new standard</span> <br /> of work.
+            </h1>
+            <div className="space-y-6">
+              {[
+                { icon: Globe, title: 'Collaborate Anywhere', text: 'Connect with your team in real-time from any device.' },
+                { icon: Shield, title: 'Privacy First', text: 'Your data is encrypted and protected by enterprise security.' },
+                { icon: Cloud, title: 'Smart Automation', text: 'Automate repetitive tasks and focus on what matters.' }
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white backdrop-blur-md border border-white/10 transition-transform hover:scale-110">
+                    <item.icon size={20} />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white uppercase tracking-widest text-[10px]">{item.title}</h3>
+                    <p className="mt-1 text-sm font-medium text-brand-100 opacity-80 leading-relaxed">{item.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-black text-white uppercase tracking-widest text-[11px]">{item.title}</h3>
-                  <p className="mt-1 text-sm font-medium text-brand-200 leading-relaxed max-w-xs">{item.text}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
 
-        <div className="relative z-10 pt-10">
-          <p className="text-[10px] font-bold text-brand-200 uppercase tracking-widest opacity-60">© 2026 Operative Interface. All rights reserved.</p>
+        <div className="relative z-10">
+          <p className="text-[10px] font-black uppercase tracking-widest text-brand-200 opacity-60">© 2026 TASKFLOW SYSTEMS. ALL RIGHTS RESERVED.</p>
         </div>
       </div>
 
       {/* Right side: Form */}
-      <div className="flex w-full flex-col overflow-y-auto bg-white p-8 dark:bg-zinc-950 lg:w-[55%] lg:p-24 custom-scrollbar">
-        <div className="mx-auto w-full max-w-xl">
+      <div className="flex w-full flex-col overflow-y-auto bg-white p-8 dark:bg-dark-bg lg:w-1/2 lg:p-16 custom-scrollbar">
+        <div className="mx-auto w-full max-w-sm">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="mb-14 lg:text-left text-center">
-              <h2 className="font-display text-5xl font-black tracking-tight text-slate-900 dark:text-white uppercase leading-none">Establish Identity</h2>
-              <p className="mt-4 text-base font-medium text-slate-500 dark:text-slate-400">Initialize your operative profile within the workspace terminal.</p>
+            <div className="mb-10 lg:text-left text-center">
+              <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-text-primary uppercase tracking-tighter">Create Account</h2>
+              <p className="mt-2 text-sm font-medium text-slate-500 dark:text-text-secondary opacity-70">Join TaskFlow and start managing your projects better.</p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-10">
-              <div className="grid gap-8 md:grid-cols-2">
-                <div className="space-y-2">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">Alias (Full Name)</label>
-                  <Input
-                    placeholder="John Doe"
-                    error={errors.fullName?.message}
-                    {...register('fullName')}
-                    className="h-12 rounded-2xl bg-slate-50 border-transparent focus:bg-white focus:ring-brand-500/10 dark:bg-zinc-900 dark:border-zinc-800"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">Frequency (Email)</label>
-                  <Input
-                    placeholder="john@company.com"
-                    error={errors.email?.message}
-                    {...register('email')}
-                    className="h-12 rounded-2xl bg-slate-50 border-transparent focus:bg-white focus:ring-brand-500/10 dark:bg-zinc-900 dark:border-zinc-800"
-                  />
-                </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted ml-1">Full Name</label>
+                <input
+                  placeholder="Enter your full name"
+                  {...register('fullName')}
+                  className={cn(
+                    "h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg",
+                    errors.fullName && "ring-red-500/20 border-red-500"
+                  )}
+                />
+                {errors.fullName && <p className="text-[10px] font-bold text-red-500 ml-1">{errors.fullName.message}</p>}
               </div>
 
-              <div className="grid gap-8 md:grid-cols-2">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted ml-1">Email Address</label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  {...register('email')}
+                  className={cn(
+                    "h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg",
+                    errors.email && "ring-red-500/20 border-red-500"
+                  )}
+                />
+                {errors.email && <p className="text-[10px] font-bold text-red-500 ml-1">{errors.email.message}</p>}
+              </div>
+
+              <div className="grid gap-6">
                 <div className="space-y-2">
-                   <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">Access Key</label>
-                   <Input
-                    type="password"
-                    placeholder="••••••••"
-                    error={errors.password?.message}
-                    {...register('password')}
-                    className="h-12 rounded-2xl bg-slate-50 border-transparent focus:bg-white focus:ring-brand-500/10 dark:bg-zinc-900 dark:border-zinc-800"
-                  />
+                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted ml-1">Create Password</label>
+                   <div className="relative">
+                      <input
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="Create a password"
+                        {...register('password')}
+                        className={cn(
+                          "h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg",
+                          errors.password && "ring-red-500/20 border-red-500"
+                        )}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+                      >
+                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                   </div>
                 </div>
+
                 <div className="space-y-2">
-                   <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">Verify Key</label>
-                   <Input
+                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted ml-1">Confirm Password</label>
+                   <input
                     type="password"
-                    placeholder="••••••••"
-                    error={errors.confirmPassword?.message}
+                    placeholder="Confirm password"
                     {...register('confirmPassword')}
-                    className="h-12 rounded-2xl bg-slate-50 border-transparent focus:bg-white focus:ring-brand-500/10 dark:bg-zinc-900 dark:border-zinc-800"
+                    className={cn(
+                      "h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg",
+                      errors.confirmPassword && "ring-red-500/20 border-red-500"
+                    )}
                   />
+                  {errors.confirmPassword && <p className="text-[10px] font-bold text-red-500 ml-1">{errors.confirmPassword.message}</p>}
                 </div>
               </div>
 
-              <div className="space-y-6">
-                <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 ml-1">Operative Classification</label>
-                <div className="grid grid-cols-2 gap-6">
-                  {[
-                    { id: 'Member', icon: User, desc: 'Standard operative for task execution and collaboration.' },
-                    { id: 'Admin', icon: Shield, desc: 'Command authority for workspace orchestration and policy.' }
-                  ].map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => handleRoleSelect(item.id as any)}
-                      className={cn(
-                        "group relative flex flex-col items-start gap-3 rounded-[2rem] border-2 p-6 text-left transition-all duration-300",
-                        role === item.id 
-                          ? "border-brand-500 bg-brand-50/30 dark:bg-brand-500/5 dark:border-brand-500/50" 
-                          : "border-slate-50 hover:border-slate-100 dark:border-white/5 dark:bg-white/5"
-                      )}
-                    >
+              {/* Password Requirements Container */}
+              <div className="bg-slate-50 dark:bg-dark-secondary p-5 rounded-2xl space-y-3 shadow-sm border dark:border-white/5">
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted">Password Security</p>
+                <div className="space-y-2">
+                  {passwordRequirements.map((req, i) => (
+                    <div key={i} className="flex items-center gap-2">
                       <div className={cn(
-                        "flex h-12 w-12 items-center justify-center rounded-2xl transition-all shadow-xl",
-                        role === item.id ? "bg-brand-600 text-white shadow-brand-500/30" : "bg-white text-slate-500 dark:bg-zinc-800 dark:text-slate-400"
+                        "h-1.5 w-1.5 rounded-full transition-all",
+                        req.met ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" : "bg-slate-300 dark:bg-white/10"
+                      )} />
+                      <span className={cn(
+                        "text-[11px] font-bold transition-colors",
+                        req.met ? "text-emerald-600 dark:text-emerald-400" : "text-slate-500 dark:text-text-muted"
                       )}>
-                        <item.icon size={22} />
-                      </div>
-                      <div>
-                        <p className={cn("font-black uppercase tracking-widest text-xs", role === item.id ? "text-brand-700 dark:text-brand-300" : "text-slate-900 dark:text-white")}>{item.id}</p>
-                        <p className="mt-2 text-[11px] font-semibold leading-relaxed text-slate-500 dark:text-slate-400 tracking-tight">{item.desc}</p>
-                      </div>
-                      {role === item.id && (
-                        <div className="absolute right-4 top-4 h-2 w-2 rounded-full bg-brand-500 animate-pulse" />
-                      )}
-                    </button>
+                        {req.label}
+                      </span>
+                    </div>
                   ))}
                 </div>
               </div>
 
               <div className="space-y-4 pt-4">
-                <Button type="submit" size="lg" className="group w-full h-16 rounded-[1.5rem] font-black uppercase tracking-[0.15em] text-sm shadow-2xl shadow-brand-500/20" isLoading={isLoading}>
-                  Deploy Operative
+                <Button type="submit" size="lg" className="group w-full h-14 rounded-2xl font-black uppercase tracking-widest text-xs shadow-2xl shadow-brand-500/20 bg-brand-600 hover:bg-brand-500 border-none" isLoading={isLoading}>
+                  Create Account
                   <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
                 </Button>
-                <p className="text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
-                  By deploying, you acknowledge the <a href="#" className="text-brand-600 hover:text-brand-500">Service Protocols</a> and <a href="#" className="text-brand-600 hover:text-brand-500">Privacy Encryption</a> standards.
+                <p className="text-center text-[10px] font-bold text-slate-400 dark:text-text-muted uppercase tracking-widest leading-relaxed">
+                  By signing up, you agree to our <a href="#" className="text-brand-600 dark:text-brand-400 hover:text-brand-500 transition-colors">Terms of Service</a> and <a href="#" className="text-brand-600 dark:text-brand-400 hover:text-brand-500 transition-colors">Privacy Policy</a>.
                 </p>
               </div>
             </form>
 
-            <footer className="mt-16 border-t border-slate-50 pt-10 text-center dark:border-zinc-900">
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
-                Already established?{' '}
-                <Link to="/login" className="font-black text-brand-600 transition-colors hover:text-brand-500 uppercase tracking-tighter ml-1">
-                  Signal In
+            <footer className="mt-10 border-t border-slate-50 pt-8 text-center dark:border-white/5">
+              <p className="text-sm font-medium text-slate-500 dark:text-text-secondary">
+                Already have an account?{' '}
+                <Link to="/login" className="font-black text-brand-600 transition-colors hover:text-brand-500 dark:text-brand-400 uppercase tracking-tighter ml-1">
+                  Sign In
                 </Link>
               </p>
             </footer>

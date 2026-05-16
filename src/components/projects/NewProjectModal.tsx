@@ -84,7 +84,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ isOpen, onClos
             <div className="flex items-center justify-between border-b border-slate-100 p-8 dark:border-dark-border">
               <div>
                 <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-text-primary uppercase tracking-tighter">Create New Project</h2>
-                <p className="mt-1 text-sm font-medium text-slate-400 dark:text-text-secondary opacity-70">Launch a new mission for your team.</p>
+                <p className="mt-1 text-sm font-medium text-slate-400 dark:text-text-secondary opacity-70">Launch a new project for your team.</p>
               </div>
               <button
                 onClick={onClose}
@@ -98,7 +98,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ isOpen, onClos
               <div className="space-y-6">
                 {/* Project Name */}
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Project Identity</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Project Name</label>
                   <input
                     {...register('name')}
                     placeholder="e.g. Hyperion Dashboard"
@@ -109,7 +109,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ isOpen, onClos
 
                 {/* Description */}
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Mission Description</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Project Description</label>
                   <textarea
                     {...register('description')}
                     placeholder="Briefly explain the goals and scope..."
@@ -121,7 +121,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ isOpen, onClos
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   {/* Team */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Functional Team</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Department</label>
                     <div className="relative">
                       <Tag size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                       <input
@@ -135,7 +135,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ isOpen, onClos
 
                   {/* Deadline */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Target Deadline</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Project Deadline</label>
                     <div className="relative">
                       <CalendarIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                       <input
@@ -151,7 +151,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ isOpen, onClos
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                    {/* Status */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Initial Status</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Status</label>
                     <select
                         {...register('status')}
                         className="h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg"
@@ -164,7 +164,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ isOpen, onClos
 
                    {/* Priority */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Strategic Priority</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Priority</label>
                     <div className="flex items-center gap-2 rounded-2xl bg-slate-50 p-1 dark:bg-dark-secondary border dark:border-white/5">
                         {['Low', 'Medium', 'High'].map((p) => (
                             <button
@@ -188,7 +188,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ isOpen, onClos
                 {/* Team Members */}
                 <div className="space-y-3 font-display">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Assign Squad Members</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Assign Team Members</label>
                     <span className="text-[10px] font-bold text-brand-500 dark:text-brand-400 uppercase tracking-widest">{selectedMembers.length} Selected</span>
                   </div>
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
