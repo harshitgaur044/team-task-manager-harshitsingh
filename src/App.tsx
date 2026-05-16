@@ -19,13 +19,18 @@ import { SettingsPage } from './pages/settings/SettingsPage';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
+import { DataProvider } from './context/DataContext';
+import { Toaster } from 'sonner';
+
 export default function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider>
         <AuthProvider>
-          <Router>
-          <Routes>
+          <DataProvider>
+            <Router>
+              <Toaster position="top-right" expand={false} richColors />
+              <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             
@@ -46,9 +51,10 @@ export default function App() {
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </Router>
-      </AuthProvider>
-    </ThemeProvider>
+            </Router>
+          </DataProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

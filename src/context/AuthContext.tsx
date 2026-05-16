@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '../types';
-import { mockUsers } from '../data/mockData';
+import { storage } from '../lib/storage';
 
 interface AuthContextType {
   user: User | null;
   login: (email: string) => Promise<void>;
+  signup: (name: string, email: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -12,30 +13,65 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    const saved = localStorage.getItem('user');
-    return saved ? JSON.parse(saved) : null;
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const initAuth = async () => {
+      const currentUser = storage.auth.getCurrentUser();
+      setUser(currentUser);
+      setIsLoading(false);
+    };
+    initAuth();
+  }, []);
 
   const login = async (email: string) => {
     setIsLoading(true);
-    // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 800));
     
-    const foundUser = mockUsers.find(u => u.email === email) || mockUsers[0];
-    setUser(foundUser);
-    localStorage.setItem('user', JSON.stringify(foundUser));
+    const users = storage.users.get();
+    const foundUser = users.find(u => u.email === email);
+    
+    if (foundUser) {
+      storage.auth.setCurrentUser(foundUser);
+      setUser(foundUser);
+    } else {
+      throw new Error('User signal not detected. Please verify credentials.');
+    }
+    setIsLoading(false);
+  };
+
+  const signup = async (name: string, email: string) => {
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    const existingUsers = storage.users.get();
+    if (existingUsers.some(u => u.email === email)) {
+      throw new Error('Identity already exists in workspace.');
+    }
+
+    const newUser: User = {
+      id: Math.random().toString(36).substr(2, 9),
+      name,
+      email,
+      role: 'Member',
+      avatar: `https://i.pravatar.cc/150?u=${email}`,
+      status: 'online'
+    };
+
+    storage.users.add(newUser);
+    storage.auth.setCurrentUser(newUser);
+    setUser(newUser);
     setIsLoading(false);
   };
 
   const logout = () => {
+    storage.auth.logout();
     setUser(null);
-    localStorage.removeItem('user');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

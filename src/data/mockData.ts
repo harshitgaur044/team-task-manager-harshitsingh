@@ -22,7 +22,7 @@ export const mockTasks: Task[] = [
 ];
 
 export const mockNotifications: Notification[] = [
-  { id: 'n1', title: 'Task Assigned', message: 'Emma assigned "Accessibility Audit" to you.', time: '10m ago', read: false, type: 'info' },
-  { id: 'n2', title: 'Project Deadline', message: 'SaaS Dashboard Redesign is due in 4 weeks.', time: '2h ago', read: false, type: 'warning' },
-  { id: 'n3', title: 'Deployment Success', message: 'Data Pipeline v2.4 successfully deployed.', time: '5h ago', read: true, type: 'success' },
+  { id: 'n1', title: 'Task Assigned', message: 'Emma assigned "Accessibility Audit" to you.', time: '10m ago', timestamp: new Date(Date.now() - 10 * 60000).toISOString(), read: false, type: 'info' },
+  { id: 'n2', title: 'Project Deadline', message: 'SaaS Dashboard Redesign is due in 4 weeks.', time: '2h ago', timestamp: new Date(Date.now() - 2 * 60 * 60000).toISOString(), read: false, type: 'warning' },
+  { id: 'n3', title: 'Deployment Success', message: 'Data Pipeline v2.4 successfully deployed.', time: '5h ago', timestamp: new Date(Date.now() - 5 * 60 * 60000).toISOString(), read: true, type: 'success' },
 ];

@@ -1,39 +1,45 @@
 import React, { useState } from 'react';
-import { mockProjects, mockUsers } from '../../data/mockData';
+import { useData } from '../../context/DataContext';
 import { Card, CardContent } from '../../components/common/Card';
 import { Button } from '../../components/common/Button';
 import { 
   Plus, 
   MoreHorizontal, 
   Calendar as CalendarIcon, 
-  Users as UsersIcon, 
   Search, 
   Filter,
-  ArrowUpRight,
-  Target,
   Trophy,
-  Activity
+  Activity,
+  Briefcase
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
+import { NewProjectModal } from '../../components/projects/NewProjectModal';
 
 export const ProjectList: React.FC = () => {
+  const { projects, users } = useData();
   const [search, setSearch] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredProjects = mockProjects.filter(p => 
+  const filteredProjects = projects.filter(p => 
     p.name.toLowerCase().includes(search.toLowerCase()) ||
     p.team.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div className="space-y-10 pb-10">
+      <NewProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      
       {/* Page Header */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h1 className="font-display text-4xl font-bold tracking-tight dark:text-white">Workspace Projects</h1>
           <p className="mt-1 text-slate-500 font-medium">Track progress and collaborate on all your team initiatives.</p>
         </div>
-        <Button className="h-12 rounded-2xl px-8 font-bold shadow-xl shadow-brand-500/20 transition-all active:scale-95">
+        <Button 
+          onClick={() => setIsModalOpen(true)}
+          className="h-12 rounded-2xl px-8 font-bold shadow-xl shadow-brand-500/20 transition-all active:scale-95"
+        >
           <Plus size={20} className="mr-2" />
           Create New Project
         </Button>
@@ -42,9 +48,9 @@ export const ProjectList: React.FC = () => {
       {/* Stats Bar */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
          {[
-           { label: 'Active Projects', value: mockProjects.filter(p => p.status === 'active').length, icon: Activity, color: 'text-brand-500', bg: 'bg-brand-500/10' },
-           { label: 'Completed', value: mockProjects.filter(p => p.status === 'completed').length, icon: Trophy, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-           { label: 'Total Milestones', value: 24, icon: Target, color: 'text-blue-500', bg: 'bg-blue-500/10' },
+           { label: 'Active Projects', value: projects.filter(p => p.status === 'active').length, icon: Activity, color: 'text-brand-500', bg: 'bg-brand-500/10' },
+           { label: 'Completed', value: projects.filter(p => p.status === 'completed').length, icon: Trophy, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+           { label: 'Team Members', value: users.length, icon: Briefcase, color: 'text-blue-500', bg: 'bg-blue-500/10' },
          ].map((stat, i) => (
            <Card key={i} className="!p-6 border-none ring-1 ring-slate-200 dark:ring-white/5 bg-white/50 dark:bg-white/5 backdrop-blur-sm shadow-sm transition-all hover:shadow-md">
               <div className="flex items-center gap-4">
@@ -77,9 +83,6 @@ export const ProjectList: React.FC = () => {
                  <Filter size={16} />
                  All Teams
               </button>
-              <button className="flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-bold text-slate-600 shadow-sm ring-1 ring-slate-200 hover:bg-slate-50 dark:bg-white/5 dark:text-white dark:ring-white/10">
-                 Status
-              </button>
           </div>
       </div>
 
@@ -89,13 +92,13 @@ export const ProjectList: React.FC = () => {
           {filteredProjects.map((project, idx) => (
             <motion.div
               layout
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ delay: idx * 0.05 }}
               key={project.id}
             >
               <Card className="group relative overflow-hidden h-full flex flex-col border-none ring-1 ring-slate-200 transition-all hover:shadow-2xl hover:shadow-brand-500/10 hover:ring-brand-500/30 dark:bg-zinc-900 dark:ring-white/5 dark:hover:ring-brand-500/20">
-                {/* Decorative Background Icon */}
                 <div className="absolute -right-4 -top-4 text-slate-50 transition-colors group-hover:text-brand-50/50 dark:text-white/5 dark:group-hover:text-brand-500/10">
                   <Briefcase size={120} strokeWidth={1} />
                 </div>
@@ -151,7 +154,7 @@ export const ProjectList: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex -space-x-3">
                         {project.members.slice(0, 4).map((memberId) => {
-                          const member = mockUsers.find(u => u.id === memberId);
+                          const member = users.find(u => u.id === memberId);
                           return (
                             <div key={memberId} className="h-10 w-10 overflow-hidden rounded-2xl border-[3px] border-white ring-1 ring-slate-100 bg-slate-200 dark:border-zinc-900 dark:ring-transparent">
                               <img src={member?.avatar} alt={member?.name} className="h-full w-full object-cover" />
@@ -183,6 +186,7 @@ export const ProjectList: React.FC = () => {
         <motion.button 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
+          onClick={() => setIsModalOpen(true)}
           className="group relative flex min-h-[350px] flex-col items-center justify-center rounded-[2rem] border-[3px] border-dashed border-slate-200 p-8 text-slate-400 transition-all hover:border-brand-500 hover:bg-brand-50/50 hover:text-brand-600 dark:border-white/5 dark:hover:bg-brand-500/5 dark:hover:text-brand-400"
         >
           <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-slate-50 transition-colors group-hover:bg-brand-100 dark:bg-white/5 dark:group-hover:bg-brand-500/10">
@@ -195,5 +199,3 @@ export const ProjectList: React.FC = () => {
     </div>
   );
 };
-
-import { Briefcase } from 'lucide-react';

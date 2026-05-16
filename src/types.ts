@@ -34,6 +34,23 @@ export interface Notification {
   title: string;
   message: string;
   time: string;
+  timestamp: string;
   read: boolean;
   type: 'info' | 'warning' | 'success';
+}
+
+export interface Activity {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  action: string;
+  target: string;
+  timestamp: string;
+}
+
+export interface AppSettings {
+  darkMode: boolean;
+  notificationsEnabled: boolean;
+  emailNotifications: boolean;
 }

@@ -1,29 +1,25 @@
 import React, { useState } from 'react';
-import { mockUsers } from '../../data/mockData';
+import { useData } from '../../context/DataContext';
 import { Card, CardContent } from '../../components/common/Card';
 import { Button } from '../../components/common/Button';
 import { 
   Search, 
   Mail, 
-  Phone, 
-  MoreVertical, 
   Shield, 
   UserPlus, 
-  CheckCircle2, 
-  Clock, 
-  X, 
-  ExternalLink,
   MessageCircle,
   MoreHorizontal,
-  Plus
+  Plus,
+  Activity
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 
 export const TeamPage: React.FC = () => {
+  const { users, tasks } = useData();
   const [search, setSearch] = useState('');
 
-  const filteredUsers = mockUsers.filter(u => 
+  const filteredUsers = users.filter(u => 
     u.name.toLowerCase().includes(search.toLowerCase()) ||
     u.role.toLowerCase().includes(search.toLowerCase()) ||
     u.email.toLowerCase().includes(search.toLowerCase())
@@ -58,7 +54,6 @@ export const TeamPage: React.FC = () => {
           <div className="flex items-center gap-2">
              <div className="flex p-1 rounded-xl bg-slate-100 dark:bg-white/5">
                 <button className="px-4 py-1.5 text-xs font-bold rounded-lg bg-white shadow-sm dark:bg-white/10 dark:text-white">All Members</button>
-                <button className="px-4 py-1.5 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-900 transition-colors">Permissions</button>
              </div>
           </div>
       </div>
@@ -121,7 +116,7 @@ export const TeamPage: React.FC = () => {
                          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-50 dark:bg-white/5">
                             <Activity size={14} className="text-slate-400" />
                           </div>
-                          <span>{Math.floor(Math.random() * 50) + 10} Tasks Assigned</span>
+                          <span>{tasks.filter(t => t.assigneeId === user.id).length} Tasks Assigned</span>
                       </div>
                   </div>
 
@@ -156,5 +151,4 @@ export const TeamPage: React.FC = () => {
     </div>
   );
 };
-
-import { Activity } from 'lucide-react';
+;
