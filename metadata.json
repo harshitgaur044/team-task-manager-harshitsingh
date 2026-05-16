@@ -1,0 +1,8 @@
+{
+  "name": "Team Task Manager",
+  "description": "A premium SaaS project management platform for high-performance teams. Features include Kanban boards, team analytics, role-based access, and real-time task tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
