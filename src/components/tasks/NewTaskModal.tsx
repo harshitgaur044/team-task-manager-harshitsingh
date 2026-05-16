@@ -65,16 +65,16 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-xl overflow-hidden rounded-[2.5rem] bg-white shadow-2xl dark:bg-zinc-900"
+            className="relative w-full max-w-xl overflow-hidden rounded-[2.5rem] bg-white shadow-2xl dark:bg-dark-elevated border-none ring-1 ring-slate-200 dark:ring-white/10"
           >
-            <div className="flex items-center justify-between border-b border-slate-100 p-8 dark:border-white/5">
+            <div className="flex items-center justify-between border-b border-slate-100 p-8 dark:border-dark-border">
               <div>
-                <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white">Create New Task</h2>
-                <p className="mt-1 text-sm font-medium text-slate-400">Define the objective and assign it.</p>
+                <h2 className="text-2xl font-black tracking-tight text-slate-900 dark:text-text-primary uppercase tracking-tighter">Create New Task</h2>
+                <p className="mt-1 text-sm font-medium text-slate-400 dark:text-text-secondary opacity-70">Define the objective and assign it.</p>
               </div>
               <button
                 onClick={onClose}
-                className="rounded-xl p-2 text-slate-400 hover:bg-slate-50 hover:text-slate-900 dark:hover:bg-white/5 dark:hover:text-white"
+                className="rounded-xl p-2 text-slate-400 hover:bg-slate-50 hover:text-slate-900 dark:text-text-muted dark:hover:bg-white/5 dark:hover:text-text-primary"
               >
                 <X size={24} />
               </button>
@@ -84,23 +84,23 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
               <div className="space-y-4">
                 {/* Title */}
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400">Task Title</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Task Title</label>
                   <input
                     {...register('title')}
                     placeholder="e.g. Design Login Flow"
-                    className="h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-white/5 dark:text-white"
+                    className="h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg"
                   />
                   {errors.title && <p className="text-[10px] font-bold text-red-500">{errors.title.message}</p>}
                 </div>
 
                 {/* Project */}
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400">Select Project</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Select Project</label>
                   <div className="relative">
                     <Briefcase size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                     <select
                       {...register('projectId')}
-                      className="h-12 w-full rounded-2xl bg-slate-50 pl-11 pr-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-white/5 dark:text-white appearance-none"
+                      className="h-12 w-full rounded-2xl bg-slate-50 pl-11 pr-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg appearance-none"
                     >
                       <option value="">Select a project...</option>
                       {projects.map(p => (
@@ -114,10 +114,10 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
                 <div className="grid grid-cols-2 gap-4">
                   {/* Status */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400">Status</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Status</label>
                     <select
                       {...register('status')}
-                      className="h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-white/5 dark:text-white"
+                      className="h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg"
                     >
                       <option value="To Do">To Do</option>
                       <option value="In Progress">In Progress</option>
@@ -128,10 +128,10 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
 
                   {/* Priority */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400">Priority</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Priority</label>
                     <select
                       {...register('priority')}
-                      className="h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-white/5 dark:text-white"
+                      className="h-12 w-full rounded-2xl bg-slate-50 px-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg"
                     >
                       <option value="Low">Low</option>
                       <option value="Medium">Medium</option>
@@ -143,12 +143,12 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
                 <div className="grid grid-cols-2 gap-4">
                   {/* Assignee */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400">Assignee</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Assignee</label>
                     <div className="relative">
                       <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                       <select
                         {...register('assigneeId')}
-                        className="h-12 w-full rounded-2xl bg-slate-50 pl-11 pr-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-white/5 dark:text-white appearance-none"
+                        className="h-12 w-full rounded-2xl bg-slate-50 pl-11 pr-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg appearance-none"
                       >
                          <option value="">Select member...</option>
                         {users.map(u => (
@@ -160,13 +160,13 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
 
                   {/* Deadline */}
                   <div className="space-y-2">
-                    <label className="text-xs font-black uppercase tracking-widest text-slate-400">Deadline</label>
+                    <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Deadline</label>
                     <div className="relative">
                       <CalendarIcon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                       <input
                         type="date"
                         {...register('deadline')}
-                        className="h-12 w-full rounded-2xl bg-slate-50 pl-11 pr-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-white/5 dark:text-white"
+                        className="h-12 w-full rounded-2xl bg-slate-50 pl-11 pr-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg"
                       />
                     </div>
                   </div>
@@ -174,11 +174,11 @@ export const NewTaskModal: React.FC<NewTaskModalProps> = ({ isOpen, onClose, def
 
                 {/* Description */}
                 <div className="space-y-2">
-                  <label className="text-xs font-black uppercase tracking-widest text-slate-400">Briefing</label>
+                  <label className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">Briefing</label>
                   <textarea
                     {...register('description')}
                     placeholder="Details about the task expectations..."
-                    className="min-h-[80px] w-full rounded-2xl bg-slate-50 p-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-white/5 dark:text-white"
+                    className="min-h-[80px] w-full rounded-2xl bg-slate-50 p-4 text-sm font-bold ring-brand-500/20 transition-all focus:bg-white focus:ring-4 dark:bg-dark-secondary dark:text-text-primary dark:border dark:border-white/5 dark:focus:bg-dark-bg"
                   />
                 </div>
               </div>

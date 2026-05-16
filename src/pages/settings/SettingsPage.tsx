@@ -82,10 +82,10 @@ export const SettingsPage: React.FC = () => {
                                     "group relative flex w-full items-center gap-4 rounded-2xl px-5 py-4 text-xs font-black transition-all uppercase tracking-widest",
                                     activeTab === tab.id 
                                         ? "bg-brand-600 text-white shadow-xl shadow-brand-500/20 ring-1 ring-white/10 translate-x-2" 
-                                        : "text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-white/5"
+                                        : "text-slate-500 hover:bg-slate-50 dark:text-text-muted dark:hover:bg-white/5 dark:hover:text-text-primary"
                                 )}
                             >
-                                <tab.icon size={18} className={cn("transition-transform group-hover:scale-110", activeTab === tab.id ? "text-white" : "text-slate-400")} />
+                                <tab.icon size={18} className={cn("transition-transform group-hover:scale-110", activeTab === tab.id ? "text-white" : "text-slate-400 dark:text-text-muted")} />
                                 <span>{tab.label}</span>
                                 {activeTab === tab.id && (
                                     <motion.div 
@@ -111,8 +111,8 @@ export const SettingsPage: React.FC = () => {
                            <section className="space-y-6">
                               <div className="flex items-end justify-between">
                                  <div>
-                                    <h3 className="text-2xl font-black uppercase tracking-tight dark:text-white">Neural Signature</h3>
-                                    <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400 leading-relaxed">This identity card is broadcasted across the workspace mesh.</p>
+                                    <h3 className="text-2xl font-black uppercase tracking-tight dark:text-text-primary">Neural Signature</h3>
+                                    <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 leading-relaxed">This identity card is broadcasted across the workspace mesh.</p>
                                  </div>
                                  <Button 
                                     onClick={handleSaveProfile} 
@@ -124,22 +124,22 @@ export const SettingsPage: React.FC = () => {
                                  </Button>
                               </div>
 
-                              <Card className="overflow-hidden bg-slate-50/50 dark:bg-zinc-900 shadow-none border-transparent ring-1 ring-slate-100 dark:ring-white/5">
+                              <Card className="overflow-hidden bg-slate-50/50 dark:bg-dark-card shadow-none border-transparent ring-1 ring-slate-100 dark:ring-white/1 ring-opacity-100 dark:ring-white/10">
                                  <CardContent className="p-10 space-y-10">
                                     <div className="flex items-center gap-10">
                                        <div className="group relative h-32 w-32 shrink-0">
                                           <img 
                                             src={profileData.avatar} 
                                             alt={profileData.name} 
-                                            className="h-full w-full rounded-[2rem] object-cover ring-8 ring-white dark:ring-zinc-800 shadow-2xl transition-transform group-hover:scale-105" 
+                                            className="h-full w-full rounded-[2rem] object-cover ring-8 ring-white dark:ring-dark-bg transition-transform group-hover:scale-105" 
                                           />
-                                          <button className="absolute -bottom-2 -right-2 flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-xl ring-4 ring-white dark:ring-zinc-900 transition-all hover:scale-110 active:scale-95">
+                                          <button className="absolute -bottom-2 -right-2 flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-xl ring-4 ring-white dark:ring-dark-card transition-all hover:scale-110 active:scale-95">
                                              <Camera size={18} />
                                           </button>
                                        </div>
                                        <div className="space-y-2">
-                                          <h4 className="text-xl font-black uppercase tracking-tight dark:text-white">{profileData.name}</h4>
-                                          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest leading-none bg-slate-100 dark:bg-white/5 px-3 py-1.5 rounded-lg inline-block">{profileData.title}</p>
+                                          <h4 className="text-xl font-black uppercase tracking-tight dark:text-text-primary">{profileData.name}</h4>
+                                          <p className="text-sm font-bold text-slate-400 uppercase tracking-widest leading-none bg-slate-100 dark:bg-white/10 px-3 py-1.5 rounded-lg inline-block dark:text-brand-400">{profileData.title}</p>
                                           <div className="flex items-center gap-2 text-[10px] font-black text-emerald-500 uppercase tracking-widest mt-2">
                                              <Check size={14} />
                                              Operative Status: Fully Calibrated
@@ -149,43 +149,43 @@ export const SettingsPage: React.FC = () => {
 
                                     <div className="grid gap-8 md:grid-cols-2">
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Operative Name</label>
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Operative Name</label>
                                           <Input 
                                             value={profileData.name} 
                                             onChange={(e) => setProfileData({...profileData, name: e.target.value})}
-                                            className="h-12 rounded-2xl bg-white dark:bg-zinc-950 border-transparent focus:ring-brand-500/10"
+                                            className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary"
                                           />
                                        </div>
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Frequency Source</label>
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Frequency Source</label>
                                           <Input 
                                             value={profileData.email} 
                                             onChange={(e) => setProfileData({...profileData, email: e.target.value})}
-                                            className="h-12 rounded-2xl bg-white dark:bg-zinc-950 border-transparent focus:ring-brand-500/10"
+                                            className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary"
                                           />
                                        </div>
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Functional Designation</label>
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Functional Designation</label>
                                           <Input 
                                             value={profileData.title} 
                                             onChange={(e) => setProfileData({...profileData, title: e.target.value})}
-                                            className="h-12 rounded-2xl bg-white dark:bg-zinc-950 border-transparent focus:ring-brand-500/10"
+                                            className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary"
                                           />
                                        </div>
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Security Clearance</label>
-                                          <div className="flex items-center h-12 w-full rounded-2xl bg-white/50 dark:bg-zinc-950 border-2 border-slate-100 dark:border-white/5 px-4 text-sm font-black uppercase tracking-tight text-brand-600">
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Security Clearance</label>
+                                          <div className="flex items-center h-12 w-full rounded-2xl bg-white/50 dark:bg-dark-bg border-2 border-slate-100 dark:border-white/10 px-4 text-sm font-black uppercase tracking-tight text-brand-600 dark:text-brand-400">
                                              {user?.role} Access Level
                                           </div>
                                        </div>
                                     </div>
 
                                     <div className="space-y-1.5">
-                                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Identity Directive (Bio)</label>
+                                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Identity Directive (Bio)</label>
                                        <textarea 
                                           value={profileData.bio}
                                           onChange={(e) => setProfileData({...profileData, bio: e.target.value})}
-                                          className="min-h-[120px] w-full rounded-[1.5rem] border-transparent bg-white dark:bg-zinc-950 p-4 text-sm font-semibold tracking-tight leading-relaxed focus:ring-brand-500/10 transition-all focus:outline-none dark:text-white"
+                                          className="min-h-[120px] w-full rounded-[1.5rem] border-transparent bg-white dark:bg-dark-secondary p-4 text-sm font-semibold tracking-tight leading-relaxed focus:ring-brand-500/10 transition-all focus:outline-none dark:text-text-primary dark:placeholder:text-text-placeholder"
                                           placeholder="Define your purpose..."
                                        />
                                     </div>
@@ -196,7 +196,7 @@ export const SettingsPage: React.FC = () => {
                     )}
 
                     {activeTab === 'security' && (
-                        <motion.div
+                         <motion.div
                           key="security"
                           initial={{ opacity: 0, x: 20 }}
                           animate={{ opacity: 1, x: 0 }}
@@ -206,26 +206,26 @@ export const SettingsPage: React.FC = () => {
                            <section className="space-y-6">
                               <div className="flex items-end justify-between">
                                  <div>
-                                    <h3 className="text-2xl font-black uppercase tracking-tight dark:text-white">Encryption Layer</h3>
-                                    <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400 leading-relaxed">Protect your node with rotating access keys.</p>
+                                    <h3 className="text-2xl font-black uppercase tracking-tight dark:text-text-primary">Encryption Layer</h3>
+                                    <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 leading-relaxed">Protect your node with rotating access keys.</p>
                                  </div>
                               </div>
 
-                              <Card className="overflow-hidden bg-slate-50/50 dark:bg-zinc-900 shadow-none border-transparent ring-1 ring-slate-100 dark:ring-white/5">
+                              <Card className="overflow-hidden bg-slate-50/50 dark:bg-dark-card shadow-none border-transparent ring-1 ring-slate-100 dark:ring-white/10 uppercase-text-labels">
                                  <CardContent className="p-10 space-y-8">
                                     <div className="grid gap-8">
                                        <div className="space-y-1.5">
-                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Root Access Key</label>
-                                          <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-zinc-950 border-transparent focus:ring-brand-500/10" />
+                                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Root Access Key</label>
+                                          <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary" />
                                        </div>
                                        <div className="grid gap-8 md:grid-cols-2">
                                           <div className="space-y-1.5">
-                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">New Terminal Key</label>
-                                             <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-zinc-950 border-transparent focus:ring-brand-500/10" />
+                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">New Terminal Key</label>
+                                             <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary" />
                                           </div>
                                           <div className="space-y-1.5">
-                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Verify New Key</label>
-                                             <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-zinc-950 border-transparent focus:ring-brand-500/10" />
+                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80 ml-1">Verify New Key</label>
+                                             <Input type="password" placeholder="••••••••" className="h-12 rounded-2xl bg-white dark:bg-dark-secondary border-transparent focus:ring-brand-500/10 dark:text-text-primary" />
                                           </div>
                                        </div>
                                     </div>
@@ -237,10 +237,10 @@ export const SettingsPage: React.FC = () => {
                                           </div>
                                           <div>
                                              <p className="text-[11px] font-black uppercase tracking-widest text-brand-600 dark:text-brand-400">Biological Override (2FA)</p>
-                                             <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-slate-400 tracking-tight leading-relaxed">Add secondary signal verification to your identity.</p>
+                                             <p className="mt-1 text-sm font-semibold text-slate-500 dark:text-text-secondary opacity-70 tracking-tight leading-relaxed">Add secondary signal verification to your identity.</p>
                                           </div>
                                        </div>
-                                       <Button variant="outline" className="rounded-2xl h-11 px-6 font-black uppercase tracking-widest text-[9px] border-brand-500/20 text-brand-600 dark:text-brand-400">Initialize</Button>
+                                       <Button variant="outline" className="rounded-2xl h-11 px-6 font-black uppercase tracking-widest text-[9px] border-brand-500/20 text-brand-600 dark:text-brand-400 hover:bg-brand-500 hover:text-white transition-all">Initialize</Button>
                                     </div>
 
                                     <div className="flex justify-end pt-4">

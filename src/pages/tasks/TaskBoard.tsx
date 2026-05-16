@@ -104,15 +104,15 @@ export const TaskBoard: React.FC = () => {
       </div>
 
       {/* Filters & Team Section */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between bg-white/50 p-4 rounded-3xl border border-slate-100 dark:bg-white/5 dark:border-white/5 backdrop-blur-sm">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between bg-white/50 p-4 rounded-3xl border border-slate-100 dark:bg-dark-secondary/50 dark:border-white/5 backdrop-blur-md">
           <div className="relative flex-1 max-w-md">
-             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-text-muted" />
              <input 
                 type="text" 
                 placeholder="Search tasks by name or tag..." 
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full h-12 pl-12 pr-4 rounded-[1.25rem] border-none bg-slate-100/50 text-sm font-medium focus:bg-white focus:ring-4 focus:ring-brand-500/10 placeholder:text-slate-400 dark:bg-white/5 dark:text-white dark:focus:bg-white/10" 
+                className="w-full h-12 pl-12 pr-4 rounded-[1.25rem] border-none bg-slate-100/50 text-sm font-medium focus:bg-white focus:ring-4 focus:ring-brand-500/10 placeholder:text-slate-400 dark:bg-dark-secondary dark:text-text-primary dark:focus:bg-dark-bg dark:placeholder:text-text-placeholder" 
              />
           </div>
           <div className="flex items-center gap-4">
@@ -167,14 +167,14 @@ export const TaskBoard: React.FC = () => {
                         exit={{ opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.2 }}
                         key={task.id}
-                        className="group relative flex flex-col rounded-[1.75rem] bg-white p-5 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-xl hover:shadow-brand-500/5 hover:ring-brand-500/30 dark:bg-zinc-900 dark:ring-white/5 dark:hover:ring-brand-500/40"
+                        className="group relative flex flex-col rounded-[1.75rem] bg-white p-5 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-xl hover:shadow-brand-500/5 hover:ring-brand-500/30 dark:bg-dark-card dark:ring-white/10 dark:hover:ring-brand-500/40"
                       >
                         <div className="mb-4 flex items-center justify-between">
                           <div className={cn(
                             "inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-[10px] font-black uppercase tracking-widest",
-                            task.priority === 'High' ? "bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-400" :
-                            task.priority === 'Medium' ? "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400" :
-                            "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
+                            task.priority === 'High' ? "bg-red-50 text-red-700 dark:bg-red-500/15 dark:text-red-400" :
+                            task.priority === 'Medium' ? "bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400" :
+                            "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400"
                           )}>
                              <Circle size={8} fill="currentColor" />
                             {task.priority}
@@ -184,40 +184,40 @@ export const TaskBoard: React.FC = () => {
                                <button 
                                 key={c.id} 
                                 onClick={() => handleStatusChange(task.id, c.id)}
-                                className={cn("h-4 w-4 rounded-full border border-white dark:border-zinc-800", c.color)} 
+                                className={cn("h-4 w-4 rounded-full border border-white dark:border-dark-card", c.color)} 
                                 title={c.label}
                                />
                              ))}
                              <button 
                               onClick={() => deleteTask(task.id)}
-                              className="ml-1 text-red-400 hover:text-red-600"
+                              className="ml-1 text-red-400 hover:text-red-600 dark:text-red-500 dark:hover:text-red-400"
                              >
                                 <MoreVertical size={14} />
                              </button>
                           </div>
                         </div>
                         
-                        <h4 className="mb-2 text-base font-bold tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors dark:text-white dark:group-hover:text-brand-400">{task.title}</h4>
-                        <p className="mb-6 text-sm font-medium leading-relaxed text-slate-500 line-clamp-2 dark:text-slate-400">{task.description}</p>
+                        <h4 className="mb-2 text-base font-bold tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors dark:text-text-primary dark:group-hover:text-brand-400 uppercase tracking-tighter leading-tight">{task.title}</h4>
+                        <p className="mb-6 text-sm font-medium leading-relaxed text-slate-500 line-clamp-2 dark:text-text-secondary opacity-80">{task.description}</p>
                         
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mt-auto">
                           <div className="flex items-center gap-3">
-                             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-50 dark:bg-white/5 group-hover:scale-110 transition-transform overflow-hidden ring-1 ring-slate-100 dark:ring-white/10">
+                             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-50 dark:bg-white/10 group-hover:scale-110 transition-transform overflow-hidden ring-1 ring-slate-100 dark:ring-white/10 ">
                                <img src={assignee?.avatar} alt="" className="h-full w-full object-cover" />
                              </div>
                              <div className="hidden sm:block">
-                               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Assignee</p>
-                               <p className="text-xs font-bold text-slate-900 dark:text-white">{assignee?.name.split(' ')[0]}</p>
+                               <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted">Assignee</p>
+                               <p className="text-xs font-bold text-slate-900 dark:text-text-primary">{assignee?.name.split(' ')[0]}</p>
                              </div>
                           </div>
-                          <div className="flex items-center gap-2.5 text-slate-400">
-                             <div className="flex items-center gap-1 text-[10px] font-bold">
-                               <MessageSquare size={14} className="text-slate-300" />
+                          <div className="flex items-center gap-2.5 text-slate-400 dark:text-text-muted">
+                             <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest">
+                               <MessageSquare size={14} className="text-slate-300 dark:text-text-placeholder" />
                                <span>{Math.floor(Math.random() * 5) + 1}</span>
                              </div>
-                             <div className="flex items-center gap-1 text-[10px] font-bold">
-                               <Clock size={14} className="text-slate-300" />
-                               <span className="text-[9px] uppercase">{task.deadline.split('-').slice(1).join('/')}</span>
+                             <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest">
+                               <Clock size={14} className="text-slate-300 dark:text-text-placeholder" />
+                               <span className="font-mono text-[9px]">{task.deadline.split('-').slice(1).join('/')}</span>
                              </div>
                           </div>
                         </div>

@@ -48,7 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed, mobil
 
       <aside className={cn(
         "fixed left-4 top-4 z-50 transition-all duration-500 ease-in-out",
-        "h-[calc(100vh-32px)] rounded-[2.5rem] bg-white shadow-2xl ring-1 ring-slate-200 dark:glass dark:ring-white/10",
+        "h-[calc(100vh-32px)] rounded-[2.5rem] bg-white shadow-2xl ring-1 ring-slate-200 dark:bg-dark-secondary/90 dark:backdrop-blur-2xl dark:ring-white/10 dark:border dark:border-white/5",
         collapsed ? "w-20" : "w-72",
         mobileOpen ? "translate-x-0" : "-translate-x-[110%] lg:translate-x-0"
       )}>
@@ -111,8 +111,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed, mobil
                 className={({ isActive }) => cn(
                   "group relative flex items-center gap-3 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-300",
                   isActive 
-                    ? "bg-brand-600 text-white shadow-xl shadow-brand-500/30" 
-                    : "text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/5 dark:hover:text-white"
+                    ? "bg-brand-600 text-white shadow-2xl shadow-brand-500/40 border border-white/10" 
+                    : "text-slate-500 hover:bg-slate-50 dark:text-text-muted dark:hover:bg-white/5 dark:hover:text-text-primary"
                 )}
               >
                 {({ isActive }) => (
@@ -162,21 +162,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed, mobil
           </div>
 
           <div className={cn(
-            "flex items-center gap-3 rounded-[1.5rem] bg-slate-50 p-2 dark:bg-white/5",
+            "flex items-center gap-3 rounded-[1.5rem] bg-slate-50 p-2 dark:bg-dark-elevated ring-1 ring-slate-200 dark:ring-white/5",
             collapsed ? "justify-center" : "justify-between"
           )}>
             <div className="flex items-center gap-3 min-w-0">
-              <div className="h-10 w-10 shrink-0 rounded-xl bg-brand-100 p-0.5 dark:bg-brand-900/30">
+              <div className="h-10 w-10 shrink-0 rounded-xl bg-brand-100 p-0.5 dark:bg-brand-900/40 border dark:border-white/10">
                 <img 
-                  src={`https://i.pravatar.cc/150?u=${user?.id || 'admin'}`} 
+                  src={user?.avatar || `https://i.pravatar.cc/150?u=${user?.id || 'admin'}`} 
                   alt="Avatar" 
                   className="h-full w-full rounded-[0.5rem] object-cover" 
                 />
               </div>
               {!collapsed && (
                 <div className="min-w-0">
-                  <p className="truncate text-xs font-black text-slate-900 dark:text-white">{user?.name || 'Alex Chen'}</p>
-                  <p className="truncate text-[10px] font-bold text-slate-500">{user?.role || 'Product Lead'}</p>
+                  <p className="truncate text-[11px] font-black uppercase tracking-tight text-slate-900 dark:text-text-primary">{user?.name || 'Alex Chen'}</p>
+                  <p className="truncate text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-text-muted opacity-70">{user?.role || 'Product Lead'}</p>
                 </div>
               )}
             </div>

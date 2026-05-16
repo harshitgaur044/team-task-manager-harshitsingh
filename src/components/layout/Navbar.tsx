@@ -50,12 +50,12 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between bg-slate-50/80 px-10 border-b border-transparent backdrop-blur-md dark:bg-dark-bg/80 dark:border-white/5">
+    <header className="sticky top-0 z-30 flex h-20 w-full items-center justify-between bg-slate-50/80 px-10 border-b border-transparent backdrop-blur-md dark:bg-dark-bg/80 dark:border-dark-border">
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-xs font-bold shadow-sm ring-1 ring-slate-200 dark:bg-white/5 dark:text-white dark:ring-white/10">
-          <span className="text-slate-400 dark:text-slate-500 uppercase tracking-widest text-[9px]">Workspace</span>
-          <span className="text-slate-300 dark:text-slate-700">/</span>
-          <span className="text-slate-900 dark:text-white uppercase tracking-widest text-[9px]">Mission Control</span>
+        <div className="flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-xs font-bold shadow-sm ring-1 ring-slate-200 dark:bg-dark-secondary/50 dark:text-text-primary dark:ring-white/10 border dark:border-white/5">
+          <span className="text-slate-400 dark:text-text-muted uppercase tracking-widest text-[9px]">Workspace</span>
+          <span className="text-slate-300 dark:text-text-placeholder">/</span>
+          <span className="text-slate-900 dark:text-text-primary uppercase tracking-widest text-[9px]">Mission Control</span>
         </div>
       </div>
 
@@ -74,7 +74,7 @@ export const Navbar: React.FC = () => {
                 setShowSearchBox(true);
               }}
               onFocus={() => setShowSearchBox(true)}
-              className="peer h-10 w-64 rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm font-medium transition-all focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 focus:outline-none dark:border-white/10 dark:bg-white/5 dark:text-white lg:w-80"
+              className="peer h-10 w-64 rounded-xl border border-slate-200 bg-white pl-10 pr-4 text-sm font-medium transition-all focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 focus:outline-none dark:border-dark-border dark:bg-dark-secondary dark:text-text-primary lg:w-80"
             />
             <div className="absolute inset-y-0 right-2 flex items-center">
               <kbd className="hidden rounded-lg bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500 dark:bg-white/10 dark:text-slate-400 lg:block uppercase">⌘K</kbd>
@@ -87,7 +87,7 @@ export const Navbar: React.FC = () => {
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                className="absolute left-0 right-0 mt-3 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-2xl dark:border-white/5 dark:bg-zinc-900"
+                className="absolute left-0 right-0 mt-3 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-2xl dark:border-dark-border dark:bg-dark-elevated backdrop-blur-3xl"
               >
                 {hasResults ? (
                   <div className="p-2 space-y-2">
@@ -183,10 +183,10 @@ export const Navbar: React.FC = () => {
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                className="absolute right-0 mt-4 w-96 origin-top-right overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl dark:border-white/5 dark:bg-zinc-900"
+                className="absolute right-0 mt-4 w-96 origin-top-right overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl dark:border-dark-border dark:bg-dark-elevated backdrop-blur-3xl"
               >
-                <div className="flex items-center justify-between border-b border-slate-50 p-6 dark:border-white/5">
-                  <h3 className="text-[11px] font-black tracking-widest dark:text-white uppercase">Neural Pulse</h3>
+                <div className="flex items-center justify-between border-b border-slate-50 p-6 dark:border-dark-border">
+                  <h3 className="text-[11px] font-black tracking-widest dark:text-text-primary uppercase">Neural Pulse</h3>
                   <button className="text-[10px] font-black text-brand-600 hover:text-brand-500 dark:text-brand-400 uppercase tracking-widest">Acknowledge All</button>
                 </div>
                 <div className="max-h-[400px] overflow-y-auto p-3 space-y-1 custom-scrollbar">
@@ -200,22 +200,22 @@ export const Navbar: React.FC = () => {
                           !n.read && "bg-brand-50/30 dark:bg-brand-500/5 ring-1 ring-brand-500/10"
                         )}
                       >
-                        <div className={cn("mt-1 flex h-2 w-2 shrink-0 rounded-full", !n.read ? "bg-brand-500" : "bg-slate-200 dark:bg-slate-700")} />
+                        <div className={cn("mt-1 flex h-2 w-2 shrink-0 rounded-full", !n.read ? "bg-brand-500 shadow-[0_0_8px_#8b5cf6]" : "bg-slate-200 dark:bg-slate-700")} />
                         <div>
-                          <p className="text-sm font-black tracking-tight dark:text-white uppercase">{n.title}</p>
-                          <p className="mt-1 text-xs font-semibold leading-relaxed text-slate-500 dark:text-slate-400 tracking-tight">{n.message}</p>
-                          <p className="mt-2 text-[10px] font-black uppercase tracking-widest text-slate-400 font-mono">{new Date(n.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                          <p className="text-sm font-black tracking-tight dark:text-text-primary uppercase">{n.title}</p>
+                          <p className="mt-1 text-xs font-semibold leading-relaxed text-slate-500 dark:text-text-secondary tracking-tight">{n.message}</p>
+                          <p className="mt-2 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted font-mono">{new Date(n.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                         </div>
                       </button>
                     ))
                   ) : (
                     <div className="p-8 text-center">
-                      <p className="text-sm font-bold text-slate-400 uppercase tracking-widest opacity-50">Pulse flat line. No signals.</p>
+                      <p className="text-sm font-bold text-slate-400 dark:text-text-muted uppercase tracking-widest opacity-50">Pulse flat line. No signals.</p>
                     </div>
                   )}
                 </div>
-                <div className="border-t border-slate-50 p-4 dark:border-white/5">
-                  <button className="w-full rounded-xl py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">Archive Access</button>
+                <div className="border-t border-slate-50 p-4 dark:border-dark-border">
+                  <button className="w-full rounded-xl py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-text-muted hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">Archive Access</button>
                 </div>
               </motion.div>
             )}

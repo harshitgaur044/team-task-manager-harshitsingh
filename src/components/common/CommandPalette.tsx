@@ -47,15 +47,15 @@ export const CommandPalette: React.FC = () => {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="w-full max-w-2xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-zinc-900"
+            className="w-full max-w-2xl overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl dark:border-dark-border dark:bg-dark-elevated backdrop-blur-3xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative flex items-center border-b border-slate-100 p-6 dark:border-white/5">
-              <Search className="mr-3 text-slate-400" size={20} />
+            <div className="relative flex items-center border-b border-slate-100 p-6 dark:border-dark-border">
+              <Search className="mr-3 text-slate-400 dark:text-text-muted" size={20} />
               <input
                 autoFocus
                 placeholder="Search projects, tasks, or members..."
-                className="w-full bg-transparent text-lg font-medium outline-none dark:text-white"
+                className="w-full bg-transparent text-lg font-medium outline-none dark:text-text-primary"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -75,7 +75,7 @@ export const CommandPalette: React.FC = () => {
               <div className="space-y-1">
                 {filteredProjects.length > 0 && (
                   <>
-                    <div className="px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                    <div className="px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-text-muted">
                       Projects
                     </div>
                     {filteredProjects.slice(0, 5).map((project) => (
@@ -87,12 +87,12 @@ export const CommandPalette: React.FC = () => {
                           setIsOpen(false);
                         }}
                       >
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400 border dark:border-blue-500/20">
                           <Briefcase size={20} />
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-bold dark:text-white">{project.name}</p>
-                          <p className="text-xs font-medium text-slate-500">{project.team} Team</p>
+                          <p className="text-sm font-bold dark:text-text-primary">{project.name}</p>
+                          <p className="text-xs font-medium text-slate-500 dark:text-text-secondary opacity-70">{project.team} Team</p>
                         </div>
                       </button>
                     ))}
@@ -101,7 +101,7 @@ export const CommandPalette: React.FC = () => {
 
                 {filteredTasks.length > 0 && (
                   <>
-                    <div className="mt-4 px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                    <div className="mt-4 px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-text-muted">
                       Tasks
                     </div>
                     {filteredTasks.slice(0, 5).map((task) => (
@@ -113,12 +113,12 @@ export const CommandPalette: React.FC = () => {
                           setIsOpen(false);
                         }}
                       >
-                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-500/10">
+                         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400 border dark:border-purple-500/20">
                           <CheckSquare size={20} />
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-bold dark:text-white">{task.title}</p>
-                          <p className="text-xs font-medium text-slate-500">Priority: {task.priority}</p>
+                          <p className="text-sm font-bold dark:text-text-primary">{task.title}</p>
+                          <p className="text-xs font-medium text-slate-500 dark:text-text-secondary opacity-70">Priority: {task.priority}</p>
                         </div>
                       </button>
                     ))}

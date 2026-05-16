@@ -45,21 +45,21 @@ export const ProjectList: React.FC = () => {
         </Button>
       </div>
 
-      {/* Stats Bar */}
+       {/* Stats Bar */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
          {[
-           { label: 'Active Projects', value: projects.filter(p => p.status === 'active').length, icon: Activity, color: 'text-brand-500', bg: 'bg-brand-500/10' },
-           { label: 'Completed', value: projects.filter(p => p.status === 'completed').length, icon: Trophy, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-           { label: 'Team Members', value: users.length, icon: Briefcase, color: 'text-blue-500', bg: 'bg-blue-500/10' },
+           { label: 'Active Projects', value: projects.filter(p => p.status === 'active').length, icon: Activity, color: 'text-brand-400', bg: 'bg-brand-400/10' },
+           { label: 'Completed', value: projects.filter(p => p.status === 'completed').length, icon: Trophy, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+           { label: 'Team Members', value: users.length, icon: Briefcase, color: 'text-blue-400', bg: 'bg-blue-400/10' },
          ].map((stat, i) => (
-           <Card key={i} className="!p-6 border-none ring-1 ring-slate-200 dark:ring-white/5 bg-white/50 dark:bg-white/5 backdrop-blur-sm shadow-sm transition-all hover:shadow-md">
+           <Card key={i} className="!p-6 border-none ring-1 ring-slate-200 dark:ring-white/10 bg-white/50 dark:bg-dark-card/50 backdrop-blur-md shadow-sm transition-all hover:shadow-md">
               <div className="flex items-center gap-4">
-                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${stat.bg} ${stat.color}`}>
+                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${stat.bg} ${stat.color} border dark:border-white/5`}>
                     <stat.icon size={22} />
                  </div>
                  <div>
-                    <p className="text-xs font-black uppercase tracking-widest text-slate-400">{stat.label}</p>
-                    <p className="text-2xl font-black text-slate-900 dark:text-white">{stat.value}</p>
+                    <p className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-text-muted">{stat.label}</p>
+                    <p className="text-2xl font-black text-slate-900 dark:text-text-primary">{stat.value}</p>
                  </div>
               </div>
            </Card>
@@ -69,17 +69,17 @@ export const ProjectList: React.FC = () => {
       {/* Filter Bar */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center justify-between">
           <div className="relative flex-1 max-w-md">
-             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-text-muted" />
              <input 
                 type="text" 
                 placeholder="Find a project..." 
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full h-12 pl-12 pr-4 rounded-2xl border-none bg-white shadow-sm ring-1 ring-slate-200 text-sm font-medium focus:ring-4 focus:ring-brand-500/10 placeholder:text-slate-400 dark:bg-white/5 dark:text-white dark:ring-white/10" 
+                className="w-full h-12 pl-12 pr-4 rounded-2xl border-none bg-white shadow-sm ring-1 ring-slate-200 text-sm font-medium focus:ring-4 focus:ring-brand-500/10 placeholder:text-slate-400 dark:bg-dark-secondary dark:text-text-primary dark:ring-white/10 dark:placeholder:text-text-placeholder" 
              />
           </div>
           <div className="flex items-center gap-2">
-              <button className="flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-bold text-slate-600 shadow-sm ring-1 ring-slate-200 hover:bg-slate-50 dark:bg-white/5 dark:text-white dark:ring-white/10">
+              <button className="flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-bold text-slate-600 shadow-sm ring-1 ring-slate-200 hover:bg-slate-50 dark:bg-dark-elevated dark:text-text-primary dark:ring-white/10 border dark:border-white/5">
                  <Filter size={16} />
                  All Teams
               </button>
@@ -98,8 +98,8 @@ export const ProjectList: React.FC = () => {
               transition={{ delay: idx * 0.05 }}
               key={project.id}
             >
-              <Card className="group relative overflow-hidden h-full flex flex-col border-none ring-1 ring-slate-200 transition-all hover:shadow-2xl hover:shadow-brand-500/10 hover:ring-brand-500/30 dark:bg-zinc-900 dark:ring-white/5 dark:hover:ring-brand-500/20">
-                <div className="absolute -right-4 -top-4 text-slate-50 transition-colors group-hover:text-brand-50/50 dark:text-white/5 dark:group-hover:text-brand-500/10">
+              <Card className="group relative overflow-hidden h-full flex flex-col border-none ring-1 ring-slate-200 transition-all hover:shadow-2xl hover:shadow-brand-500/10 hover:ring-brand-500/30 dark:bg-dark-card dark:ring-white/10 dark:hover:ring-brand-500/20">
+                <div className="absolute -right-4 -top-4 text-slate-50 transition-colors group-hover:text-brand-50/50 dark:text-white/5 dark:group-hover:text-brand-500/10 opacity-30">
                   <Briefcase size={120} strokeWidth={1} />
                 </div>
 
@@ -109,25 +109,25 @@ export const ProjectList: React.FC = () => {
                       <div className="flex items-center gap-2">
                         <span className={cn(
                           "rounded-lg px-2.5 py-1 text-[10px] font-black uppercase tracking-widest",
-                          project.status === 'active' ? "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400" :
-                          project.status === 'completed' ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400" :
-                          "bg-slate-50 text-slate-600 dark:bg-white/5 dark:text-slate-400"
+                          project.status === 'active' ? "bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-400" :
+                          project.status === 'completed' ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-400" :
+                          "bg-slate-50 text-slate-600 dark:bg-white/10 dark:text-text-muted"
                         )}>
                           {project.status}
                         </span>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-300 dark:text-slate-600">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-300 dark:text-text-placeholder">
                           {project.team} Team
                         </span>
                       </div>
-                      <button className="rounded-lg p-1.5 text-slate-300 transition-colors hover:bg-slate-50 hover:text-slate-900 dark:hover:bg-white/5 dark:hover:text-white">
+                      <button className="rounded-lg p-1.5 text-slate-300 transition-colors hover:bg-slate-50 hover:text-slate-900 dark:text-text-muted dark:hover:bg-white/5 dark:hover:text-text-primary">
                         <MoreHorizontal size={20} />
                       </button>
                     </div>
                     
-                    <h3 className="mb-2 text-2xl font-black tracking-tight text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors leading-tight">
+                    <h3 className="mb-2 text-2xl font-black tracking-tight text-slate-900 dark:text-text-primary group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-all leading-tight uppercase tracking-tighter">
                       {project.name}
                     </h3>
-                    <p className="mb-8 line-clamp-2 text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">
+                    <p className="mb-8 line-clamp-2 text-sm font-medium leading-relaxed text-slate-500 dark:text-text-secondary opacity-80">
                       {project.description}
                     </p>
                   </div>
@@ -135,17 +135,17 @@ export const ProjectList: React.FC = () => {
                   <div className="mt-auto p-8 pt-0">
                     <div className="mb-6">
                        <div className="flex justify-between items-end mb-3">
-                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Progress</span>
-                          <span className="text-sm font-black text-slate-900 dark:text-white">{project.progress}%</span>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted">Progress</span>
+                          <span className="text-sm font-black text-slate-900 dark:text-text-primary">{project.progress}%</span>
                        </div>
-                       <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-white/5">
+                       <div className="h-4 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-white/5 p-1 ring-1 ring-slate-200 dark:ring-white/10">
                           <motion.div 
                             initial={{ width: 0 }}
                             animate={{ width: `${project.progress}%` }}
                             transition={{ duration: 1, ease: 'easeOut' }}
                             className={cn(
-                              "h-full rounded-full transition-all shadow-[0_0_10px_rgba(0,0,0,0.1)]",
-                              project.progress === 100 ? "bg-emerald-500" : "bg-brand-500"
+                              "h-full rounded-full transition-all shadow-[0_0_10px_rgba(0,0,0,0.1)] shadow-brand-500/20",
+                              project.progress === 100 ? "bg-emerald-500" : "bg-gradient-to-r from-brand-600 to-indigo-600"
                             )}
                           />
                        </div>
@@ -156,21 +156,21 @@ export const ProjectList: React.FC = () => {
                         {project.members.slice(0, 4).map((memberId) => {
                           const member = users.find(u => u.id === memberId);
                           return (
-                            <div key={memberId} className="h-10 w-10 overflow-hidden rounded-2xl border-[3px] border-white ring-1 ring-slate-100 bg-slate-200 dark:border-zinc-900 dark:ring-transparent">
+                            <div key={memberId} className="h-10 w-10 overflow-hidden rounded-2xl border-[3px] border-white ring-1 ring-slate-100 bg-slate-200 dark:border-dark-card dark:ring-white/5">
                               <img src={member?.avatar} alt={member?.name} className="h-full w-full object-cover" />
                             </div>
                           );
                         })}
                         {project.members.length > 4 && (
-                          <div className="flex h-10 w-10 items-center justify-center rounded-2xl border-[3px] border-white bg-slate-100 text-[10px] font-black text-slate-500 ring-1 ring-slate-100 dark:border-zinc-900 dark:bg-white/10 dark:text-slate-400 dark:ring-transparent tracking-tighter">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-2xl border-[3px] border-white bg-slate-100 text-[10px] font-black text-slate-500 ring-1 ring-slate-100 dark:border-dark-card dark:bg-dark-secondary dark:text-text-muted dark:ring-white/5 tracking-tighter shadow-sm border dark:border-white/5">
                             +{project.members.length - 4}
                           </div>
                         )}
                       </div>
                       <div className="flex flex-col items-end">
-                        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400">
+                        <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted">
                           <CalendarIcon size={14} className="text-brand-500" />
-                          <span className="dark:text-slate-500">{project.deadline}</span>
+                          <span>{project.deadline}</span>
                         </div>
                       </div>
                     </div>

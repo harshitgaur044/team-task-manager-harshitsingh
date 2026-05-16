@@ -38,10 +38,10 @@ export const Dashboard: React.FC = () => {
   const completionRate = tasks.length > 0 ? Math.round((completedTasksCount / tasks.length) * 100) : 0;
 
   const stats = [
-    { label: 'Total Projects', value: projects.length, icon: Briefcase, color: 'text-blue-500', bg: 'bg-blue-500/10', trend: 'Active workspace', progress: 100 },
-    { label: 'Pending Tasks', value: activeTasksCount, icon: Clock, color: 'text-amber-500', bg: 'bg-amber-500/10', trend: `${highPriorityTasks.length} high priority`, progress: 65 },
-    { label: 'Completed', value: completedTasksCount, icon: CheckCircle2, color: 'text-emerald-500', bg: 'bg-emerald-500/10', trend: `${completionRate}% rate`, progress: completionRate },
-    { label: 'Team Members', value: users.length, icon: Users, color: 'text-brand-500', bg: 'bg-brand-500/10', trend: 'Collaborating', progress: 100 },
+    { label: 'Total Projects', value: projects.length, icon: Briefcase, color: 'text-blue-400', bg: 'bg-blue-400/10', trend: 'Active workspace', progress: 100 },
+    { label: 'Pending Tasks', value: activeTasksCount, icon: Clock, color: 'text-amber-400', bg: 'bg-amber-400/10', trend: `${highPriorityTasks.length} high priority`, progress: 65 },
+    { label: 'Completed', value: completedTasksCount, icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-400/10', trend: `${completionRate}% rate`, progress: completionRate },
+    { label: 'Team Members', value: users.length, icon: Users, color: 'text-brand-400', bg: 'bg-brand-400/10', trend: 'Collaborating', progress: 100 },
   ];
 
   const chartData = [
@@ -120,23 +120,23 @@ export const Dashboard: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 * idx }}
           >
-            <Card className="group h-full !pb-0 ring-1 ring-slate-200 dark:ring-white/5 transition-all hover:shadow-xl hover:shadow-brand-500/5 dark:bg-zinc-900 border-none">
+            <Card className="group h-full !pb-0 ring-1 ring-slate-200 dark:ring-white/5 transition-all hover:shadow-xl hover:shadow-brand-500/5 dark:bg-dark-card dark:bg-gradient-to-br dark:from-dark-card dark:to-dark-bg border-none">
               <CardContent className="flex flex-col gap-4 p-7">
                 <div className="flex items-center justify-between">
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-[1.25rem] ${stat.bg} ${stat.color} transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-sm`}>
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-[1.25rem] ${stat.bg} ${stat.color} transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-sm border border-white/5`}>
                     <stat.icon size={22} />
                   </div>
-                  <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted">
                     <TrendingUp size={12} className="text-emerald-500" />
                     <span>{stat.trend}</span>
                   </div>
                 </div>
                 <div>
-                  <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">{stat.label}</p>
-                  <p className="mt-1 text-3xl font-black tracking-tight text-slate-900 dark:text-white">{stat.value}</p>
+                  <p className="text-[11px] font-black uppercase tracking-widest text-slate-400 dark:text-text-muted opacity-80">{stat.label}</p>
+                  <p className="mt-1 text-3xl font-black tracking-tight text-slate-900 dark:text-text-primary">{stat.value}</p>
                 </div>
               </CardContent>
-              <div className="h-1.5 w-full bg-slate-50 dark:bg-white/5">
+              <div className="h-1.5 w-full bg-slate-50 dark:bg-white/5 border-t dark:border-white/5">
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={{ width: `${stat.progress}%` }}
@@ -150,14 +150,14 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2 !p-0 dark:bg-zinc-900 border-none ring-1 ring-slate-200 dark:ring-white/5">
+        <Card className="lg:col-span-2 !p-0 dark:bg-dark-card border-none ring-1 ring-slate-200 dark:ring-white/5">
           <CardHeader className="flex flex-row items-center justify-between border-none p-8 pb-0">
             <div>
-              <h3 className="text-2xl font-black tracking-tight">Team Productivity</h3>
-              <p className="text-sm font-medium text-slate-500">Workspace output across all focus areas</p>
+              <h3 className="text-2xl font-black tracking-tight dark:text-text-primary">Team Productivity</h3>
+              <p className="text-sm font-medium text-slate-500 dark:text-text-secondary opacity-70 font-display">Workspace output across all focus areas</p>
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex h-9 w-24 items-center justify-center rounded-xl bg-slate-100 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-600 dark:bg-white/5 dark:text-slate-300 ring-1 ring-slate-200 dark:ring-white/10">
+              <div className="flex h-9 w-24 items-center justify-center rounded-xl bg-slate-100 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-slate-600 dark:bg-dark-elevated dark:text-text-primary ring-1 ring-slate-200 dark:ring-white/10">
                 Last 7 Days
               </div>
             </div>
@@ -167,29 +167,29 @@ export const Dashboard: React.FC = () => {
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="colorTasks" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3}/>
+                    <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.4}/>
                     <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(226,232,240,0.4)" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.04)" />
                 <XAxis 
                   dataKey="name" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 800 }} 
+                  tick={{ fontSize: 10, fill: '#64748b', fontWeight: 900 }} 
                   dy={10}
                 />
                 <YAxis 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fontSize: 10, fill: '#94a3b8', fontWeight: 800 }} 
+                  tick={{ fontSize: 10, fill: '#64748b', fontWeight: 900 }} 
                 />
                 <Tooltip 
                   contentStyle={{ 
                     borderRadius: '20px', 
-                    border: 'none', 
-                    boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.5)',
-                    backgroundColor: '#0f172a',
+                    border: '1px solid rgba(255,255,255,0.1)', 
+                    boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.8)',
+                    backgroundColor: '#1e293b',
                     padding: '16px'
                   }}
                   itemStyle={{ color: '#fff', fontSize: '12px', fontWeight: 900 }}
@@ -209,13 +209,13 @@ export const Dashboard: React.FC = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col !p-0 dark:bg-zinc-900 border-none ring-1 ring-slate-200 dark:ring-white/5">
+        <Card className="flex flex-col !p-0 dark:bg-dark-card border-none ring-1 ring-slate-200 dark:ring-white/5">
           <CardHeader className="p-8 pb-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-black tracking-tight">Critical Deadlines</h3>
-              <Calendar size={20} className="text-brand-500" />
+              <h3 className="text-xl font-black tracking-tight dark:text-text-primary">Critical Deadlines</h3>
+              <Calendar size={20} className="text-brand-400" />
             </div>
-            <p className="mt-1 text-sm font-medium text-slate-500">Immediate action required</p>
+            <p className="mt-1 text-sm font-medium text-slate-500 dark:text-text-muted opacity-70">Immediate action required</p>
           </CardHeader>
           <CardContent className="flex-1 space-y-4 overflow-y-auto px-8 pb-8 custom-scrollbar">
             {highPriorityTasks.length > 0 ? (
@@ -256,13 +256,13 @@ export const Dashboard: React.FC = () => {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-         <Card className="!p-8 dark:bg-zinc-900 border-none ring-1 ring-slate-200 dark:ring-white/5">
+         <Card className="!p-8 dark:bg-dark-card border-none ring-1 ring-slate-200 dark:ring-white/5">
             <CardHeader className="flex flex-row items-center justify-between border-none p-0 mb-8">
               <div>
-                <h3 className="text-2xl font-black tracking-tight">Active Missions</h3>
-                <p className="text-sm font-medium text-slate-500">Live project velocity</p>
+                <h3 className="text-2xl font-black tracking-tight dark:text-text-primary uppercase tracking-tighter">Active Missions</h3>
+                <p className="text-sm font-medium text-slate-500 dark:text-text-muted">Live project velocity</p>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-500/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-50 text-brand-600 dark:bg-brand-500/10 border dark:border-brand-500/20 shadow-lg shadow-brand-500/10">
                 <Layers size={20} />
               </div>
             </CardHeader>
@@ -293,12 +293,12 @@ export const Dashboard: React.FC = () => {
             </CardContent>
          </Card>
 
-         <Card className="!p-8 relative overflow-hidden group dark:bg-zinc-900 border-none ring-1 ring-slate-200 dark:ring-white/5">
+         <Card className="!p-8 relative overflow-hidden group dark:bg-dark-card border-none ring-1 ring-slate-200 dark:ring-white/5">
             <CardHeader className="border-none p-0 mb-8">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white uppercase tracking-tight">Recent Activity</h3>
-                  <p className="text-sm font-medium text-slate-500">Pulse of the workspace</p>
+                  <h3 className="text-2xl font-black tracking-tight text-slate-900 dark:text-text-primary uppercase tracking-tighter">Recent Activity</h3>
+                  <p className="text-sm font-medium text-slate-500 dark:text-text-secondary opacity-70">Pulse of the workspace</p>
                 </div>
               </div>
             </CardHeader>
